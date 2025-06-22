@@ -25,13 +25,14 @@ exports.handler = async function (event, context) {
     const sheets = google.sheets({ version: 'v4', auth });
     
     // 폼 데이터에서 필요한 값을 추출합니다.
-    const { name, email, message } = payload.data;
+    const { name, email, phone, message } = payload.data;
     
     // 시트에 기록할 데이터 행을 준비합니다.
     const newRow = [
       new Date().toISOString(), // 제출 시간
       name || '',
       email || '',
+      phone || '',
       message || '',
     ];
 
