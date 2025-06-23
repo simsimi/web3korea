@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>웹3기업협회 (KOWA)</title>
+    <title>웹3기업협회 (WEB3 KOREA)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,12 @@
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body { font-family: 'Noto Sans KR', sans-serif; background-color: #f8fafc; color: #1f2937; }
-        .hero-bg { background: linear-gradient(135deg, #e0e7ff 0%, #f3e8ff 100%); }
+        .hero-bg {
+            background-image: url('assets/hero-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
         .section-title { font-weight: 900; }
         .partner-carousel .logos { display: flex; animation: scroll 40s linear infinite; }
         .partner-carousel:hover .logos { animation-play-state: paused; }
@@ -53,7 +58,7 @@
     <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="#hero" class="text-2xl font-black text-indigo-600">KOWA</a>
+                <a href="#hero" class="text-2xl font-black text-indigo-600">WEB3 KOREA</a>
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#about" class="nav-link text-gray-600 hover:text-indigo-600 font-medium">협회소개</a>
                     <a href="#activities" class="nav-link text-gray-600 hover:text-indigo-600 font-medium">주요사업</a>
@@ -84,14 +89,14 @@
         <section id="hero" class="relative pt-32 pb-20 md:pt-48 md:pb-32 hero-bg overflow-hidden">
             <canvas id="hero-canvas"></canvas>
             <div class="container mx-auto px-6 text-center relative z-10">
-                <h1 class="text-4xl md:text-6xl font-black text-gray-800 leading-tight mb-4">
+                <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-4" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.6);">
                     대한민국 Web3의 미래를 엽니다
                 </h1>
-                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mb-8" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.6);">
                     웹3기업협회는 블록체인 기반의 탈중앙화 디지털 경제를 통해 대한민국이 글로벌 웹3 산업의 중심지로 도약하도록 건강하고 혁신적인 성장 기반을 만들어갑니다.
                 </p>
                 <a href="#about" class="bg-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:bg-indigo-700 transition-transform hover:scale-105 inline-block">
-                    KOWA 더 알아보기
+                    WEB3 KOREA 더 알아보기
                 </a>
             </div>
         </section>
@@ -99,7 +104,7 @@
         <section id="about" class="py-20 md:py-28 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">웹3기업협회(KOWA) 소개</h2>
+                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">웹3기업협회(WEB3 KOREA) 소개</h2>
                     <p class="text-lg text-gray-500 max-w-2xl mx-auto">우리의 미션은 인공지능(AI), 블록체인, 메타버스 등 진일보한 기술 정책 옹호, 윤리적 개발 장려, 국제 협력 촉진을 통해 활기차고 투명하며 글로벌 경쟁력을 갖춘 웹3 생태계를 육성하는 것입니다.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -136,7 +141,7 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">주요 사업</h2>
-                    <p class="text-lg text-gray-500 max-w-2xl mx-auto">KOWA는 대한민국 웹3 생태계의 혁신과 성장을 위해 세 가지 핵심 사업을 중심으로 활동합니다.</p>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto">웹3 코리아는 대한민국 웹3 생태계의 혁신과 성장을 위해 세 가지 핵심 사업을 중심으로 활동합니다.</p>
                 </div>
                 <div class="max-w-4xl mx-auto">
                     <div class="accordion-item bg-white rounded-xl shadow-md mb-4 overflow-hidden">
@@ -210,7 +215,7 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">함께하는 Web3 생태계</h2>
-                    <p class="text-lg text-gray-500 max-w-2xl mx-auto">KOWA는 다양한 기업, 협회, 단체들과 함께 대한민국 웹3 산업의 미래를 만들어갑니다.</p>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto">웹3 코리아는 다양한 기업, 협회, 단체들과 함께 대한민국 웹3 산업의 미래를 만들어갑니다.</p>
                 </div>
             </div>
             <div class="w-full overflow-hidden partner-carousel relative py-4">
@@ -224,7 +229,7 @@
         <section id="news" class="py-20 md:py-28 bg-slate-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">KOWA 소식</h2>
+                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">WEB3 KOREA 소식</h2>
                     <p class="text-lg text-gray-500 max-w-2xl mx-auto">협회의 최신 동향, 공지사항, 그리고 웹3 산업의 주요 소식을 전해드립니다.</p>
                 </div>
                 <div id="news-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -235,7 +240,7 @@
         <section id="contact" class="py-20 md:py-28 bg-white">
             <div class="container mx-auto px-6">
                  <div class="text-center mb-16">
-                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">KOWA와 함께하세요</h2>
+                    <h2 class="section-title text-3xl md:text-4xl text-gray-800 mb-4">WEB3 KOREA와 함께하세요</h2>
                     <p class="text-lg text-gray-500 max-w-2xl mx-auto">회원가입을 통해 대한민국 웹3 생태계 발전에 기여하고 다양한 혜택을 누리세요.</p>
                 </div>
                 <div class="max-w-4xl mx-auto grid lg:grid-cols-2 gap-12 items-start">
@@ -288,7 +293,7 @@
         <div class="container mx-auto px-6 py-12">
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-2">웹3기업협회(KOWA)</h3>
+                    <h3 class="text-xl font-bold mb-2">웹3기업협회(WEB3 KOREA)</h3>
                     <p class="text-gray-400 text-sm">대한민국 Web3 산업의 미래를 선도합니다.</p>
                 </div>
                  <div>
@@ -390,8 +395,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const newsData = [
-        { title: 'KOWA, 웹3 산업 발전을 위한 정책 제안서 발표', date: '2025.07.15', category: '보도자료' },
-        { title: '제1회 KOWA 정기 네트워킹 데이 개최 안내', date: '2025.07.10', category: '이벤트' },
+        { title: 'WEB3 KOREA, 웹3 산업 발전을 위한 정책 제안서 발표', date: '2025.07.15', category: '보도자료' },
+        { title: '제1회 WEB3 KOREA 정기 네트워킹 데이 개최 안내', date: '2025.07.10', category: '이벤트' },
         { title: '회원사 대상 P2E 게임 규제 완화 관련 설명회', date: '2025.07.01', category: '공지' },
     ];
 
