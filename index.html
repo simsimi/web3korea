@@ -22,11 +22,16 @@
             background-repeat: no-repeat;
         }
         .section-title { font-weight: 900; }
-        .partner-carousel .logos { display: flex; animation: scroll 40s linear infinite; }
-        .partner-carousel:hover .logos { animation-play-state: paused; }
+        .partner-carousel .logos-container {
+            display: flex;
+            animation: scroll 40s linear infinite;
+        }
+        .partner-carousel:hover .logos-container {
+            animation-play-state: paused;
+        }
         @keyframes scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
+            100% { transform: translateX(-50%); }
         }
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.5s ease-out; }
         .accordion-item.active .accordion-content { max-height: 500px; }
@@ -219,9 +224,7 @@
                 </div>
             </div>
             <div class="w-full overflow-hidden partner-carousel relative py-4">
-                 <div class="logos-container flex space-x-16">
-                     <div class="logos"></div>
-                     <div class="logos"></div>
+                 <div class="logos-container">
                  </div>
             </div>
         </section>
@@ -379,17 +382,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const partners = [
-        'Polygon', 'Chainlink', 'The Sandbox', 'SK Telecom', 'LG', 'KT', 'Kakao', 
-        'Naver', 'Hyundai', 'Samsung', 'Aptos', 'Sui', 'Immutable X', 'Wemade', 'Netmarble'
+        { name: 'Polygon', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Polygon_blockchain_logo.png/960px-Polygon_blockchain_logo.png?20220903072413' },
+        { name: 'Chainlink', logoUrl: 'https://cdn.prod.website-files.com/5f6b7190899f41fb70882d08/665705c1f3833b5b5d8f4ffb_logo-chainlink-blue.svg' },
+        { name: 'The Sandbox', logoUrl: 'https://www.sandbox.game/cdn-cgi/image/f=auto,origin-auth=share-publicly,onerror=redirect,w=125,h=30/img/01_Top_Bar/TSB-Logo-White.svg', invertOnWhite: true },
+        { name: 'SK Telecom', logoUrl: 'https://i.namu.wiki/i/bLY0PuLfOrfsTP3WR__fgz2Te4mibYo5bjdwlnGF3WlHJY56VwCSAF3dxtErRHYfuIrdlBrmSP4ZafQIVTv5rk9lxpq4N2mcsn-OajhSKaooksGVUfkzKl6tOyICFDt_vKXLbaQQv870E5gfrOdrqw.svg' },
+        { name: 'LG', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/LG_symbol.svg/236px-LG_symbol.svg.png' },
+        { name: 'KT', logoUrl: 'https://corp.kt.com/images/kt/kt-ci.png?ver=2022120801' },
+        { name: 'Kakao', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Kakao_CI_yellow.svg/2560px-Kakao_CI_yellow.svg.png' },
+        { name: 'Naver', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Naver_Logotype.svg/521px-Naver_Logotype.svg.png' },
+        { name: 'Hyundai', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Hyundai_Motor_Company_logo.svg/960px-Hyundai_Motor_Company_logo.svg.png' },
+        { name: 'Samsung', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/960px-Samsung_Logo.svg.png' },
+        { name: 'Aptos', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Aptos_logo_%282025%29.png' },
+        { name: 'Sui', logoUrl: 'https://cdn.prod.website-files.com/6425f546844727ce5fb9e5ab/659d95d2971219c839dc65ac_logo-sui.svg' },
+        { name: 'Immutable X', logoUrl: 'https://cdn.prod.website-files.com/646557ee455c3e16e4a9bcb3/646557ee455c3e16e4a9bcbe_immutable-logo.svg' },
+        { name: 'Wemade', logoUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThNKehATT7nR-vkYryduVgTwS_Zo84h7f_Cg&s' },
+        { name: 'Netmarble', logoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/01_Netmarble_CI.png/960px-01_Netmarble_CI.png' }
     ];
-    const logosContainer = document.querySelector('.partner-carousel .logos');
-    partners.forEach(partner => {
+    const logosContainer = document.querySelector('.partner-carousel .logos-container');
+    
+    // 로고 세트를 두 번 생성하여 끊김 없는 애니메이션을 만듭니다.
+    const allPartners = [...partners, ...partners];
+
+    allPartners.forEach(partner => {
         const logoDiv = document.createElement('div');
-        logoDiv.className = 'flex-shrink-0 w-40 h-20 flex items-center justify-center';
+        logoDiv.className = 'flex-shrink-0 h-20 flex items-center justify-center mx-6';
         const img = document.createElement('img');
-        img.src = `https://placehold.co/120x60/f1f5f9/1f2937?text=${partner}&font=noto-sans-kr`;
-        img.alt = partner;
-        img.className = "max-h-12 max-w-full object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all";
+        img.src = partner.logoUrl;
+        img.alt = partner.name;
+        img.className = "h-12 w-auto object-contain grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all";
+        
+        // 흰색 배경에서 보이지 않는 로고 (예: The Sandbox 흰색 로고)의 색상을 반전시킵니다.
+        if (partner.invertOnWhite) {
+            img.style.filter = 'invert(1)';
+        }
+
         logoDiv.appendChild(img);
         logosContainer.appendChild(logoDiv);
     });
