@@ -1,0 +1,16 @@
+{
+  "name": "web3korea-homepage",
+  "version": "1.0.0",
+  "description": "WEB3 기업협회 홈페이지",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^150.0.1"
+  }
+}
