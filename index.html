@@ -60,6 +60,18 @@
 </head>
 <body class="bg-slate-50">
 
+    <div id="image-popup" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white p-4 rounded-lg shadow-xl relative">
+            <a href="https://bit.ly/web3korea_invitation" target="_blank" rel="noopener noreferrer">
+                <img src="assets/poster-20250725.jpeg" alt="Popup Image" class="w-auto h-auto rounded-md max-h-[75vh]">
+            </a>
+            <div class="mt-4 flex justify-between items-center">
+                <button id="close-popup-today" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 py-2 px-4 rounded-lg">오늘 하루 보지 않기</button>
+                <button id="close-popup" class="text-sm bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-lg">닫기</button>
+            </div>
+        </div>
+    </div>
+    
     <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
@@ -648,6 +660,42 @@ document.addEventListener('DOMContentLoaded', function () {
             button.classList.remove('bg-indigo-100', 'text-indigo-700');
         });
         committeeControls.appendChild(button);
+    });
+
+    const popup = document.getElementById('image-popup');
+    const closePopupBtn = document.getElementById('close-popup');
+    const closePopupTodayBtn = document.getElementById('close-popup-today');
+
+    const HIDE_UNTIL_KEY = 'hidePopupUntil';
+
+    const shouldShowPopup = () => {
+        const hideUntil = localStorage.getItem(HIDE_UNTIL_KEY);
+        if (!hideUntil) {
+            return true;
+        }
+        return new Date().getTime() > parseInt(hideUntil, 10);
+    };
+
+    if (shouldShowPopup()) {
+        popup.classList.remove('hidden');
+        popup.classList.add('flex');
+    }
+
+    closePopupBtn.addEventListener('click', () => {
+        popup.classList.add('hidden');
+        popup.classList.remove('flex');
+    });
+
+    closePopupTodayBtn.addEventListener('click', () => {
+        const today = new Date();
+        const tomorrow = new Date(today);
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        tomorrow.setHours(0, 0, 0, 0);
+        
+        localStorage.setItem(HIDE_UNTIL_KEY, tomorrow.getTime().toString());
+
+        popup.classList.add('hidden');
+        popup.classList.remove('flex');
     });
 });
 </script>
