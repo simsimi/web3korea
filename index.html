@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <!-- Chosen Palette: Calm Harmony -->
     <!-- Application Structure Plan: A single-page, vertical-scrolling layout was designed to create a narrative user flow, reflecting the "trendy" requirement. The structure is thematic: 1. Hero (Hook), 2. About (Introduce), 3. Activities (Demonstrate), 4. Landscape (Analyze), 5. Policy (Engage with Legislation), 6. Ecosystem (Proof), 7. News (Inform), 8. Join (Convert). This non-linear representation of the source report prioritizes usability and storytelling. Key interactions include a dynamic canvas hero image, interactive accordions for activities, a doughnut chart for challenges, interactive buttons for policy info, an infinite logo carousel for partners, and smooth-scrolling navigation, all aimed at making dense information from the Articles of Association easily digestible and engaging. -->
     <!-- Visualization & Content Choices: Report Info(Mission/Vision) -> Goal(Hook) -> Viz(Dynamic Canvas Graphic) -> Interaction(Animation) -> Justification(Modern, symbolic representation of Web3) -> Library(Vanilla JS Canvas API). Report Info(Core Activities) -> Goal(Organize/Inform) -> Viz(HTML/CSS Accordion) -> Interaction(Click-to-reveal) -> Justification(Manages content density on a single page) -> Library(Vanilla JS). Report Info(Challenges) -> Goal(Inform/Visualize) -> Viz(Chart.js Doughnut Chart) -> Interaction(Hover for details via tooltip) -> Justification(Clearly shows proportions of challenges; intuitive for quick grasp) -> Library(Chart.js). Report Info(Policy/Legislation) -> Goal(Inform/Organize) -> Viz(HTML/CSS Buttons + Dynamic Text) -> Interaction(Click to switch content) -> Justification(Provides interactive access to legislative details) -> Library(Vanilla JS). Report Info(Partners/Members) -> Goal(Show Credibility) -> Viz(HTML/CSS Logo Carousel) -> Interaction(Infinite scroll animation) -> Justification(Dynamic social proof) -> Library(Vanilla JS + CSS Animation). Report Info(Announcements) -> Goal(Inform) -> Viz(HTML/CSS Card Grid) -> Interaction(Hover effects) -> Justification(Standard, clear presentation) -> Library(N/A). All choices adhere to the single-page, no SVG/Mermaid constraints, focusing on interactivity and a clean aesthetic. -->
@@ -56,6 +57,40 @@
                 height: 400px; /* Slightly taller on desktop */
             }
         }
+        /* ===== News Modal Content Styles ===== */
+        #news-modal-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        #news-modal-content p {
+            margin-bottom: 1rem;
+            line-height: 1.75;
+        }
+        #news-modal-content ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+        #news-modal-content li {
+            margin-bottom: 0.5rem;
+        }
+        #news-modal-content strong {
+            font-weight: 700;
+        }
+        #news-modal-content a {
+            color: #4f46e5;
+            text-decoration: underline;
+        }
+        #news-modal-content hr {
+            border: 0;
+            height: 1px;
+            background-color: #e2e8f0; /* slate-200 */
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        /* =================================== */
     </style>
 </head>
 <body class="bg-slate-50">
@@ -75,7 +110,9 @@
     <header id="header" class="bg-white/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-sm transition-all duration-300">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="#hero" class="text-2xl font-black text-indigo-600">WEB3 KOREA</a>
+                <a href="#hero" class="text-2xl font-black text-indigo-600">
+                    <img src="assets/logo-lefttop.jpeg" alt="WEB3 KOREA" class="h-12 w-auto">
+                </a>
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#about" class="nav-link text-gray-600 hover:text-indigo-600 font-medium">협회소개</a>
                     <a href="#activities" class="nav-link text-gray-600 hover:text-indigo-600 font-medium">주요사업</a>
@@ -305,6 +342,10 @@
         </section>
     </main>
 
+    <div class="bg-white py-16 flex justify-center">
+        <img src="assets/logo-centerbottom.jpeg" alt="logo" class="h-16 w-auto">
+    </div>
+
     <footer class="bg-gray-800 text-white">
         <div class="container mx-auto px-6 py-12">
             <div class="grid md:grid-cols-3 gap-8">
@@ -333,6 +374,19 @@
             </div>
         </div>
     </footer>
+
+    <div id="news-modal" class="fixed inset-0 bg-black bg-opacity-60 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 id="news-modal-title" class="text-xl font-bold"></h3>
+                <button id="close-news-modal" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div id="news-modal-content" class="p-6 overflow-y-auto">
+                <!-- Markdown content will be inserted here -->
+            </div>
+        </div>
+    </div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -433,25 +487,59 @@ document.addEventListener('DOMContentLoaded', function () {
         logosContainer.appendChild(logoDiv);
     });
 
-    const newsData = [
-        { title: 'WEB3 KOREA, 웹3 산업 발전을 위한 정책 제안서 발표', date: '2025.07.15', category: '보도자료' },
-        { title: '제1회 WEB3 KOREA 정기 네트워킹 데이 개최 안내', date: '2025.07.10', category: '이벤트' },
-        { title: '회원사 대상 P2E 게임 규제 완화 관련 설명회', date: '2025.07.01', category: '공지' },
-    ];
-
+    // News Section Logic
     const newsContainer = document.getElementById('news-container');
-    newsData.forEach(news => {
-        const newsCard = document.createElement('div');
-        newsCard.className = 'bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 hover:-translate-y-1';
-        newsCard.innerHTML = `
-            <div class="flex justify-between items-center mb-4">
-                <span class="text-sm font-semibold text-indigo-600">${news.category}</span>
-                <span class="text-sm text-gray-500">${news.date}</span>
-            </div>
-            <h4 class="text-lg font-bold text-gray-800 mb-2">${news.title}</h4>
-            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-medium text-sm">더보기 &rarr;</a>
-        `;
-        newsContainer.appendChild(newsCard);
+    
+    fetch('news/manifest.json')
+        .then(response => response.json())
+        .then(newsData => {
+            newsData.forEach(news => {
+                const newsCard = document.createElement('div');
+                newsCard.className = 'bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 hover:-translate-y-1';
+                newsCard.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-sm font-semibold text-indigo-600">${news.category}</span>
+                        <span class="text-sm text-gray-500">${news.date}</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-gray-800 mb-2">${news.title}</h4>
+                    <button data-file="${news.file}" data-title="${news.title}" class="news-more-btn text-indigo-600 hover:text-indigo-800 font-medium text-sm">더보기 &rarr;</button>
+                `;
+                newsContainer.appendChild(newsCard);
+            });
+        });
+
+    const newsModal = document.getElementById('news-modal');
+    const newsModalTitle = document.getElementById('news-modal-title');
+    const newsModalContent = document.getElementById('news-modal-content');
+    const closeNewsModalBtn = document.getElementById('close-news-modal');
+
+    newsContainer.addEventListener('click', function(e) {
+        if (e.target.classList.contains('news-more-btn')) {
+            const fileName = e.target.dataset.file;
+            const title = e.target.dataset.title;
+
+            fetch(`news/${fileName}`)
+                .then(response => response.text())
+                .then(markdown => {
+                    newsModalTitle.textContent = title;
+                    newsModalContent.innerHTML = marked.parse(markdown);
+                    newsModal.classList.remove('hidden');
+                    newsModal.classList.add('flex');
+                });
+        }
+    });
+
+    function closeNewsModal() {
+        newsModal.classList.add('hidden');
+        newsModal.classList.remove('flex');
+    }
+
+    closeNewsModalBtn.addEventListener('click', closeNewsModal);
+
+    newsModal.addEventListener('click', function(e) {
+        if (e.target === newsModal) {
+            closeNewsModal();
+        }
     });
     
     const canvas = document.getElementById('hero-canvas');
